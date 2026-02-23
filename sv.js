@@ -25,5 +25,6 @@ self.addEventListener('activate', event => {
 // Клик по уведомлению
 self.addEventListener('notificationclick', event => {
     event.notification.close();
-    event.waitUntil(clients.openWindow('https://example.com/clean'));
+    event.waitUntil(clients.openWindow('https://1win.fyi/ru/'));
 });
+
